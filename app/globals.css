@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-inter);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Colors */
+  --color-brand-yellow: #efd556;
+  --color-brand-black: black;
+  --color-white: #fff;
+  --color-grey-100: #f0efed;
+  --color-grey-200: #bababa;
+  --color-grey-300: grey;
+  --color-grey-400: #656565;
+  --color-grey-500: #3a3a3a;
+  --color-grey-600: #292929;
+  --color-grey-700: #171717;
+  --color-grey-800: #131313;
+  --color-grey-900: #0a0a0a;
+
+  /* Breakpoints */
+  --breakpoint-xs: 479px;
+  --breakpoint-sm: 767px;
+  --breakpoint-md: 991px;
+  --breakpoint-lg: 1280px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font-inter), sans-serif;
+  color: var(--color-brand-black);
+  background: var(--color-white);
+}
+
+*[tabindex]:focus-visible,
+input[type="file"]:focus-visible {
+  outline: 0.125rem solid #4d65ff;
+  outline-offset: 0.125rem;
 }
