@@ -191,7 +191,30 @@ export default function BlogsSection() {
 
         {/* Boutons de navigation pour Mobile */}
         <div className="flex justify-center gap-4 mt-2 md:hidden">
-            {/* ... (Tes boutons mobiles inchangés) ... */}
+          <button
+            onClick={() => scroll("left")}
+            disabled={!canScrollLeft}
+            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 border border-brand-black ${
+              canScrollLeft
+                ? "bg-transparent text-brand-black hover:bg-brand-black hover:text-white cursor-pointer"
+                : "opacity-30 cursor-not-allowed"
+            }`}
+            aria-label="Previous blog"
+          >
+            <ArrowLeft size={20} />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            disabled={!canScrollRight}
+            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 border border-brand-black ${
+              canScrollRight
+                ? "bg-transparent text-brand-black hover:bg-brand-black hover:text-white cursor-pointer"
+                : "opacity-30 cursor-not-allowed"
+            }`}
+            aria-label="Next blog"
+          >
+            <ArrowRight size={20} />
+          </button>
         </div>
       </Container>
     </section>
