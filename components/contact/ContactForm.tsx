@@ -6,6 +6,7 @@ import Container from "@/components/layout/Container";
 import Tag from "@/components/ui/Tag";
 import ArrowIcon from "@/components/ui/ArrowIcon";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
+import Button from "../ui/Button";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -16,9 +17,9 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="bg-white text-brand-black">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-black text-white">
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           <Container size="small">
             <motion.div
               variants={staggerContainer}
@@ -58,7 +59,7 @@ export default function ContactForm() {
                       id="full-name"
                       name="full-name"
                       type="text"
-                      placeholder="First Name"
+                      placeholder="John DOE"
                       required
                       className="w-full rounded-xl border border-grey-200/50 bg-grey-100 px-4 py-3 text-base text-brand-black placeholder:text-grey-300 outline-none focus:border-brand-black/20 transition-colors"
                     />
@@ -75,7 +76,7 @@ export default function ContactForm() {
                       id="email-address"
                       name="email-address"
                       type="email"
-                      placeholder="Email address"
+                      placeholder="johndoe@mail.com"
                       required
                       className="w-full rounded-xl border border-grey-200/50 bg-grey-100 px-4 py-3 text-base text-brand-black placeholder:text-grey-300 outline-none focus:border-brand-black/20 transition-colors"
                     />
@@ -89,7 +90,7 @@ export default function ContactForm() {
                       id="company"
                       name="company"
                       type="text"
-                      placeholder="Company name"
+                      placeholder="JD Corp"
                       required
                       className="w-full rounded-xl border border-grey-200/50 bg-grey-100 px-4 py-3 text-base text-brand-black placeholder:text-grey-300 outline-none focus:border-brand-black/20 transition-colors"
                     />
@@ -105,7 +106,7 @@ export default function ContactForm() {
                     <textarea
                       id="project-message"
                       name="project-message"
-                      placeholder="Project information"
+                      placeholder="I have an idea ..."
                       required
                       maxLength={5000}
                       rows={5}
@@ -114,22 +115,7 @@ export default function ContactForm() {
                   </div>
 
                   <div>
-                    <motion.button
-                      type="submit"
-                      whileHover="hover"
-                      className="inline-flex items-center gap-3 rounded-full bg-grey-800 px-6 py-3 text-sm font-medium text-white cursor-pointer transition-colors hover:bg-brand-black"
-                    >
-                      <span>Submit</span>
-                      <motion.span
-                        className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-yellow text-brand-black"
-                        variants={{
-                          hover: { scale: 1.1 },
-                        }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ArrowIcon />
-                      </motion.span>
-                    </motion.button>
+                      <Button type="submit" variant="white">Submit</Button>
                   </div>
                 </motion.form>
               )}
