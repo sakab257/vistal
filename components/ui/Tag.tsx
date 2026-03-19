@@ -13,7 +13,7 @@ export default function Tag({ children, variant = "base" }: TagProps) {
       }`}
     >
       <div
-        className={`w-[6px] h-[6px] rounded-full ${
+        className={`w-2 h-2 ${
           variant === "secondary" ? "bg-white" : "bg-brand-black"
         }`}
       />

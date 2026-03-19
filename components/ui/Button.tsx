@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import ArrowIcon from "./ArrowIcon";
 
 interface ButtonProps {
@@ -23,7 +22,7 @@ export default function Button({
   const isSecondary = variant === "secondary";
 
   const wrapperClasses = `
-    group inline-flex items-center gap-2 rounded-full px-5 py-3
+    group inline-flex items-center gap-2 rounded-full px-5 py-3 hover:scale-105 active:scale-95
     transition-all duration-300 cursor-pointer
     ${isWhite ? "bg-white text-brand-black" : ""}
     ${isSecondary ? "bg-grey-800 text-white" : ""}
@@ -41,13 +40,12 @@ export default function Button({
   const content = (
     <>
       <span className="text-base font-normal">{children}</span>
-      <motion.div
-        className={iconClasses}
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.2 }}
-      >
-        <ArrowIcon className="w-4 h-4" />
-      </motion.div>
+      <div className={iconClasses + " overflow-hidden relative"}>
+        {/* Current arrow — slides out to the right on hover */}
+        <ArrowIcon className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-8" />
+        {/* Incoming arrow — slides in from the left on hover */}
+        <ArrowIcon className="w-4 h-4 absolute inset-0 m-auto transition-transform duration-300 ease-out -translate-x-8 group-hover:translate-x-0" />
+      </div>
     </>
   );
 

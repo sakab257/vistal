@@ -199,7 +199,7 @@ export const ABOUT_CARDS = [
     title: "Sustainable Offices",
     description:
       "A contemporary, light-filled technologies and recyclable materials.",
-    image: "/images/projects/sustainable-offices.avif",
+    image: "/images/hero/about-card-2.avif",
   },
   {
     title: "Urban Reatreat",

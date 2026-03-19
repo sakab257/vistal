@@ -1,18 +1,108 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate, type MotionValue } from "framer-motion";
 import Container from "@/components/layout/Container";
 import Tag from "@/components/ui/Tag";
 import Button from "@/components/ui/Button";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { ABOUT_CARDS } from "@/lib/constants";
 
-export default function AboutSection() {
+/* Card with scroll-driven animation */
+function ScrollCard({
+  card,
+  index,
+  scrollYProgress,
+}: {
+  card: (typeof ABOUT_CARDS)[number];
+  index: number;
+  scrollYProgress: MotionValue<number>;
+}) {
+  const rotations = [-9, 0, 9];
+  const offsetPercents = [-15, 0, 15];
+  const zIndexes = [2, 3, 1];
+
+  // Departure order: center (1) first, left (0) second, right (2) stays
+  const departOrder = [1, 0, 2];
+  const order = departOrder.indexOf(index);
+  const isLastCard = order === 2;
+
+  // Cards 0 & 1: depart over 40% each, spaced by 40%
+  // Last card: center/straighten during second card's departure, then tilt
+  const start = isLastCard ? 0.4 : order * 0.4;
+  const end = isLastCard ? 0.8 : start + 0.4;
+
+  const flattenStart = Math.max(0, start - 0.12);
+
+  // Rotation: straighten before departure, last card tilts slightly left after centering
+  const rotate = useTransform(
+    scrollYProgress,
+    isLastCard
+      ? [flattenStart, start, 0.9]
+      : [flattenStart, start, end],
+    isLastCard
+      ? [rotations[index], 0, -3]
+      : [rotations[index], 0, 0]
+  );
+
+  // Animate horizontal offset to center (0%)
+  const animatedOffset = useTransform(
+    scrollYProgress,
+    [flattenStart, start],
+    [offsetPercents[index], 0]
+  );
+  const left = useMotionTemplate`calc(50% + ${animatedOffset}% - min(13rem, max(10rem, 22.5%)))`;
+
+  // Only non-last cards scroll up off-screen
+  const y = useTransform(
+    scrollYProgress,
+    [start, end],
+    isLastCard ? ["0vh", "0vh"] : ["0vh", "-120vh"]
+  );
+
   return (
-    <section className="bg-brand-yellow text-brand-black relative overflow-hidden">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <motion.div
+      className="absolute top-1/2 bg-white rounded-3xl overflow-hidden shadow-lg p-4"
+      style={{
+        width: "min(26rem, max(20rem, 45%))",
+        left,
+        marginTop: "min(-15rem, -12rem)",
+        zIndex: zIndexes[index],
+        rotate,
+        y,
+      }}
+    >
+      <div className="relative aspect-4/3">
+        <Image
+          src={card.image}
+          alt={card.title}
+          fill
+          className="object-cover rounded-xl"
+        />
+      </div>
+      <div className="p-5">
+        <h3 className="text-xl font-medium mb-2">{card.title}</h3>
+        <p className="text-sm text-grey-400 leading-relaxed">
+          {card.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function AboutSection() {
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardsRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section className="bg-brand-yellow text-brand-black relative overflow-x-clip">
+      {/* Text content — scrolls normally */}
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             <motion.div
               variants={staggerContainer}
@@ -29,19 +119,18 @@ export default function AboutSection() {
 
               <motion.h2
                 variants={fadeInUp}
-                className="text-[4.5rem] max-md:text-[3rem] max-sm:text-[2.25rem] font-medium leading-[1.1] tracking-[-0.04em] max-w-[50rem]"
+                className="text-6xl max-md:text-5xl max-sm:text-5xl font-medium leading-[1.1] tracking-[-0.04em] max-w-200"
               >
-                Your gateway to prestige properties
+                Experience innovative architecture that transforms your vision
               </motion.h2>
 
               <div className="h-6" />
 
               <motion.p
                 variants={fadeInUp}
-                className="text-lg max-w-[32rem] opacity-80"
+                className="text-lg max-w-lg opacity-80"
               >
-                Experience innovative architecture that transforms your vision
-                into reality with our expert team.
+                We craft inspiring spaces that blend cutting-edge design with enduring functionality, turning your vision into reality.
               </motion.p>
 
               <div className="h-8" />
@@ -54,56 +143,23 @@ export default function AboutSection() {
             </motion.div>
           </Container>
         </div>
+      </div>
 
-        {/* Fanned project cards */}
-        <div className="mt-16 max-md:mt-10">
-          <div className="px-[3.75rem] max-md:px-6">
-            <Container>
-              <motion.div
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                className="relative flex justify-center items-center min-h-[500px] max-md:min-h-[400px] max-sm:flex-col max-sm:gap-6 max-sm:min-h-0"
-              >
-                {ABOUT_CARDS.map((card, i) => {
-                  const rotations = [-9, 0, 9];
-                  const offsets = ["-15%", "0%", "15%"];
-                  const zIndexes = [1, 3, 2];
-
-                  return (
-                    <motion.div
-                      key={card.title}
-                      variants={fadeInUp}
-                      className="bg-white rounded-[1.5rem] overflow-hidden shadow-lg max-sm:relative max-sm:w-full"
-                      style={{
-                        position: "absolute",
-                        width: "min(22rem, 40%)",
-                        left: `calc(50% + ${offsets[i]} - min(11rem, 20%))`,
-                        zIndex: zIndexes[i],
-                        rotate: `${rotations[i]}deg`,
-                      }}
-                    >
-                      <div className="relative aspect-[4/3]">
-                        <Image
-                          src={card.image}
-                          alt={card.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="p-5">
-                        <h3 className="text-xl font-medium mb-2">
-                          {card.title}
-                        </h3>
-                        <p className="text-sm text-grey-400 leading-relaxed">
-                          {card.description}
-                        </p>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
+      {/* Cards scroll area — tall section with sticky viewport */}
+      <div ref={cardsRef} className="h-[140vh] relative">
+        <div className="sticky top-0 h-screen">
+          <div className="px-15 max-md:px-6 h-full">
+            <Container className="h-full">
+              <div className="relative h-full">
+                {ABOUT_CARDS.map((card, i) => (
+                  <ScrollCard
+                    key={card.title}
+                    card={card}
+                    index={i}
+                    scrollYProgress={scrollYProgress}
+                  />
+                ))}
+              </div>
             </Container>
           </div>
         </div>
