@@ -22,7 +22,7 @@ export default function Button({
   const isSecondary = variant === "secondary";
 
   const wrapperClasses = `
-    group inline-flex items-center gap-2 rounded-full px-5 py-3 hover:scale-105 active:scale-95
+    group inline-flex items-center gap-2 rounded-full px-5 py-3 hover:scale-105 active:scale-95 w-fit
     transition-all duration-300 cursor-pointer
     ${isWhite ? "bg-white text-brand-black" : ""}
     ${isSecondary ? "bg-grey-800 text-white" : ""}

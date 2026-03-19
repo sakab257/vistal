@@ -151,7 +151,7 @@ export default function AboutSection() {
         <div className="sticky top-0 h-screen">
           <div className="px-15 max-md:px-6 h-full">
             <Container className="h-full">
-              <div className="relative h-full scale-70 sm:scale-90 md:scale-100">
+              <div className="relative h-full scale-80 sm:scale-90 md:scale-100">
                 {ABOUT_CARDS.map((card, i) => (
                   <ScrollCard
                     key={card.title}

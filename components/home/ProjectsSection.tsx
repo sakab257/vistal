@@ -7,7 +7,9 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import Container from "@/components/layout/Container";
 import ArrowIcon from "@/components/ui/ArrowIcon";
 import { PROJECTS } from "@/lib/constants";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
+import Tag from "../ui/Tag";
+import Button from "../ui/Button";
 
 export default function ProjectsSection() {
   const [activeTab, setActiveTab] = useState(0);
@@ -20,29 +22,51 @@ export default function ProjectsSection() {
 
   return (
     <section className="bg-white text-brand-black">
-      <div className="py-[3.75rem] max-md:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+      <div className="py-15 max-md:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
-            {/* Tab cards */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className="grid grid-cols-4 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3"
+              className="flex flex-col gap-8 py-8"
+            >
+              <motion.div variants={fadeInUp}>
+                <Tag>Our latest projects</Tag>
+              </motion.div>
+            
+              <div className="flex flex-col">
+                <motion.h2
+                  variants={fadeInUp}
+                  className="text-6xl max-md:text-5xl max-sm:text-4xl font-medium leading-[1.1] tracking-[-0.04em] max-w-170"
+                >
+                  We deliver exceptional real estate solutions.
+                </motion.h2>
+            
+              </div>
+            </motion.div>
+
+            {/* Tab cards */}
+            <motion.div
+              variants={scaleIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="grid grid-cols-4 max-md:grid-cols-2 gap-3"
             >
               {PROJECTS.map((project, i) => (
                 <motion.button
                   key={project.id}
                   variants={fadeInUp}
                   onClick={() => setActiveTab(i)}
-                  className={`relative rounded-2xl p-5 text-left transition-all duration-300 cursor-pointer overflow-hidden min-h-[180px] flex flex-col justify-between ${
+                  className={`relative rounded-2xl p-5 text-left transition-colors duration-300 cursor-pointer overflow-hidden h-30 md:min-h-45 flex flex-col justify-between ${
                     activeTab === i
                       ? "bg-brand-black text-white"
-                      : "bg-grey-100 text-brand-black hover:bg-grey-200/50"
+                      : "bg-black text-white hover:bg-black/90"
                   }`}
                 >
-                  {activeTab === i && i === 0 && (
+                  {activeTab === i && (
                     <div className="absolute inset-0 z-0">
                       <Image
                         src={project.image}
@@ -56,9 +80,9 @@ export default function ProjectsSection() {
                     <div className="text-xs text-grey-200 max-md:hidden">
                       {project.location}
                     </div>
-                    <div className="py-2">
+                    <div className="py-2 max-md:flex-1">
                       <span
-                        className={`text-2xl font-medium tracking-[-0.03em] ${
+                        className={`text-sm md:text-2xl font-medium tracking-[-0.03em] flex justify-center items-center max-md:h-full ${
                           activeTab === i ? "text-brand-yellow" : ""
                         }`}
                       >
@@ -93,7 +117,7 @@ export default function ProjectsSection() {
                   {/* Image */}
                   <div
                     ref={imageRef}
-                    className="relative w-full aspect-[2/1] max-md:aspect-[4/3] rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
+                    className="relative w-full h-100 max-md:aspect-4/3 rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
                   >
                     <motion.div
                       className="absolute inset-[-10%] w-[120%] h-[120%]"
@@ -107,21 +131,17 @@ export default function ProjectsSection() {
                       />
                     </motion.div>
                     {/* Bottom overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8 max-md:p-5 bg-gradient-to-t from-black/70 to-transparent">
-                      <div className="flex items-end justify-between gap-4">
-                        <p className="text-white text-base max-w-[50rem] leading-relaxed">
+                    <div className="absolute bottom-0 left-0 right-0 p-8 max-md:p-5 bg-linear-to-t from-black/70 to-transparent">
+                      <div className="grid grid-cols-2 items-end gap-4">
+                        <p className="text-white text-base max-w-200 leading-relaxed">
                           {PROJECTS[activeTab].homeDescription ||
                             PROJECTS[activeTab].description}
                         </p>
-                        <Link
-                          href={PROJECTS[activeTab].href}
-                          className="shrink-0 inline-flex items-center gap-2 bg-white text-brand-black rounded-full px-5 py-3 text-base transition-all duration-300 hover:bg-grey-100"
-                        >
-                          Learn more
-                          <span className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-yellow text-brand-black">
-                            <ArrowIcon className="w-4 h-4" />
-                          </span>
-                        </Link>
+                        <div className="ml-auto">
+                          <Button href={PROJECTS[activeTab].href} variant="white">
+                            Learn more
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
