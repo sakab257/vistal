@@ -12,8 +12,8 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 export default function ServicesSection() {
   return (
     <section className="bg-brand-black text-white">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             <motion.div
               variants={staggerContainer}
@@ -31,7 +31,7 @@ export default function ServicesSection() {
                 variants={fadeInUp}
                 className="flex flex-col md:flex-row md:items-end justify-between gap-6"
               >
-                <h2 className="text-[4.5rem] max-md:text-[3rem] max-sm:text-[2.25rem] font-medium leading-[1.1] tracking-[-0.04em] max-w-[50rem]">
+                <h2 className="text-[4.5rem] max-md:text-[3rem] max-sm:text-[2.25rem] font-medium leading-[1.1] tracking-[-0.04em] max-w-200">
                   Seamless property solutions{" "}
                   <span className="text-brand-yellow italic">tailored</span> for
                   you.
@@ -62,17 +62,13 @@ export default function ServicesSection() {
                 >
                   <Link
                     href={service.href}
-                    className={`grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-6 md:gap-12 py-10 max-md:py-6 transition-all duration-300 rounded-[2.5rem] max-md:rounded-2xl px-8 max-md:px-4 hover:bg-white hover:text-brand-black ${
-                      i === 1
-                        ? "bg-white text-brand-black"
-                        : ""
-                    }`}
+                    className={`relative grid grid-cols-[1fr_1fr] lg:grid-cols-[400px_400px_auto] gap-6 lg:gap-12 py-10 max-lg:py-6 transition-all duration-300 rounded-2xl px-8 max-lg:px-4 lg:hover:bg-white lg:hover:text-brand-black lg:[clip-path:inset(-100%_-100%_0_-100%)]`}
                   >
-                    <div className="flex flex-col gap-2">
+                    <div className="flex gap-2 lg:group-hover:translate-x-10 transition-all duration-500 ease-out">
                       <span className="text-sm text-grey-400 font-medium">
                         {service.number}
                       </span>
-                      <h3 className="text-[3rem] max-md:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
+                      <h3 className="text-lg max-md:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
                         {service.title}
                       </h3>
                     </div>
@@ -84,16 +80,14 @@ export default function ServicesSection() {
                         Learn more
                       </span>
                     </div>
-                    {i === 1 && (
-                      <div className="relative w-[200px] h-[160px] max-md:w-full max-md:h-[200px] rounded-2xl overflow-hidden">
-                        <Image
-                          src="/images/services/renovation.webp"
-                          alt="Renovation"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
+                    <div className="max-lg:hidden absolute right-20 w-70 h-75 rounded-2xl border-12 border-gray-200 bg-gray-200 -rotate-15 opacity-0 translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 group-hover:-translate-y-15 transition-all duration-300 ease-out pointer-events-none">
+                      <Image
+                        src={service.image}
+                        alt="Renovation"
+                        fill
+                        className="object-cover rounded-xl"
+                      />
+                    </div>
                   </Link>
                 </motion.div>
               ))}

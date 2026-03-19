@@ -101,6 +101,7 @@ export const SERVICES = [
     title: "Functional design",
     description:
       "Functional design organizes the project to meet its use objectives.",
+    image: "/images/services/service-1.webp",
     href: "#",
   },
   {
@@ -108,6 +109,7 @@ export const SERVICES = [
     title: "Renovation of spaces",
     description:
       "Updating existing areas to improve their functionality, aesthetics and comfort.",
+    image: "/images/services/service-2.webp",
     href: "#",
   },
   {
@@ -115,6 +117,7 @@ export const SERVICES = [
     title: "Interior design",
     description:
       "The interior design combines aesthetics and functionality to improve user comfort.",
+    image: "/images/services/service-3.webp",
     href: "#",
   },
 ];
@@ -221,7 +224,7 @@ export const SERVICES_GRID = [
     description:
       "Functional design organizes the project to meet its use objectives.",
     icon: "/images/icons/icon-home.svg",
-    image: "/images/services/hero-services.webp",
+    image: "/images/services/service-1.webp",
     href: "#",
   },
   {

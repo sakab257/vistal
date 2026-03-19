@@ -139,7 +139,7 @@ export default function ProjectsSection() {
                         </p>
                         <div className="ml-auto">
                           <Button href={PROJECTS[activeTab].href} variant="white">
-                            Learn more
+                            See project
                           </Button>
                         </div>
                       </div>
