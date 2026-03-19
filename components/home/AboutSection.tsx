@@ -28,18 +28,19 @@ function ScrollCard({
   const order = departOrder.indexOf(index);
   const isLastCard = order === 2;
 
-  // Cards 0 & 1: depart over 40% each, spaced by 40%
-  // Last card: center/straighten during second card's departure, then tilt
-  const start = isLastCard ? 0.4 : order * 0.4;
-  const end = isLastCard ? 0.8 : start + 0.4;
+  // Spread timing: each departing card gets 30% of scroll, with 5% gap
+  // Card 0 (center): 0.05→0.35, Card 1 (left): 0.40→0.70
+  // Last card: stays put until card 1 is gone, then centers 0.75→0.90
+  const start = isLastCard ? 0.75 : 0.05 + order * 0.35;
+  const end = isLastCard ? 0.90 : start + 0.30;
 
-  const flattenStart = Math.max(0, start - 0.12);
+  const flattenStart = Math.max(0, start - 0.10);
 
   // Rotation: straighten before departure, last card tilts slightly left after centering
   const rotate = useTransform(
     scrollYProgress,
     isLastCard
-      ? [flattenStart, start, 0.9]
+      ? [flattenStart, start, 0.95]
       : [flattenStart, start, end],
     isLastCard
       ? [rotations[index], 0, -3]
@@ -146,11 +147,11 @@ export default function AboutSection() {
       </div>
 
       {/* Cards scroll area — tall section with sticky viewport */}
-      <div ref={cardsRef} className="h-[140vh] relative">
+      <div ref={cardsRef} className="h-[200vh] relative">
         <div className="sticky top-0 h-screen">
           <div className="px-15 max-md:px-6 h-full">
             <Container className="h-full">
-              <div className="relative h-full">
+              <div className="relative h-full scale-70 sm:scale-90 md:scale-100">
                 {ABOUT_CARDS.map((card, i) => (
                   <ScrollCard
                     key={card.title}
