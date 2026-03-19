@@ -59,8 +59,16 @@ export default function BlogsSection() {
   const stopDragging = () => {
     if (!sliderRef.current) return;
     isDragging.current = false;
-    sliderRef.current.style.scrollSnapType = "";
     sliderRef.current.style.cursor = "";
+    // Réactive le snap après un court délai pour éviter le saut brusque
+    const el = sliderRef.current;
+    requestAnimationFrame(() => {
+      el.style.scrollBehavior = "smooth";
+      el.style.scrollSnapType = "";
+      setTimeout(() => {
+        el.style.scrollBehavior = "";
+      }, 300);
+    });
   };
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {

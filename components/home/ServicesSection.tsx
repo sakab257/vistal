@@ -68,7 +68,7 @@ export default function ServicesSection() {
                       <span className="text-sm text-grey-400 font-medium">
                         {service.number}
                       </span>
-                      <h3 className="text-lg max-md:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
+                      <h3 className="md:text-2xl lg:text-4xl max-md:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
                         {service.title}
                       </h3>
                     </div>

@@ -9,8 +9,8 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 export default function CtaSection() {
   return (
     <section className="bg-brand-yellow text-brand-black">
-      <div className="py-[3.75rem] max-md:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+      <div className="py-15 max-md:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             <motion.div
               variants={staggerContainer}
@@ -35,7 +35,7 @@ export default function CtaSection() {
 
                 <motion.p
                   variants={fadeInUp}
-                  className="text-base leading-relaxed max-w-[42rem] opacity-80"
+                  className="text-base leading-relaxed max-w-2xl opacity-80"
                 >
                   We craft inspiring spaces that blend cutting-edge design with
                   enduring functionality, turning your vision into reality.
