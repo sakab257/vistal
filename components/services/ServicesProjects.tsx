@@ -10,9 +10,9 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function ServicesProjects() {
   return (
-    <section className="bg-white text-brand-black">
-      <div className="py-[3.75rem] max-md:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-white text-brand-black relative z-10">
+      <div className="py-15 max-md:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             {/* Header */}
             <motion.div
@@ -59,7 +59,7 @@ export default function ServicesProjects() {
                 <motion.div
                   key={project.id}
                   variants={fadeInUp}
-                  className="relative rounded-2xl overflow-hidden aspect-[3/4] group"
+                  className="relative rounded-2xl overflow-hidden aspect-3/4 group"
                 >
                   <Image
                     src={project.image}
@@ -67,7 +67,7 @@ export default function ServicesProjects() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="text-xs text-white/70">
                       {project.location}

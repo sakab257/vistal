@@ -10,9 +10,9 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function HowWeWork() {
   return (
-    <section className="bg-brand-black text-white">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-brand-black text-white relative z-10">
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             {/* Header */}
             <motion.div
@@ -39,14 +39,14 @@ export default function HowWeWork() {
 
               <motion.p
                 variants={fadeInUp}
-                className="text-base text-grey-200 leading-relaxed max-w-[32rem]"
+                className="text-base text-grey-200 leading-relaxed max-w-lg"
               >
                 The interior design combines aesthetics and functionality to
                 improve user comfort.
               </motion.p>
             </motion.div>
 
-            <div className="h-[6.25rem] max-md:h-[5rem] max-sm:h-12" />
+            <div className="h-25 max-md:h-20 max-sm:h-12" />
 
             {/* Steps */}
             <motion.div
@@ -78,7 +78,7 @@ export default function HowWeWork() {
                       href={step.href}
                       className="group block rounded-2xl bg-grey-800 overflow-hidden transition-colors hover:bg-grey-700"
                     >
-                      <div className="grid grid-cols-1 sm:grid-cols-2 min-h-[240px] max-md:min-h-0">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 min-h-60 max-md:min-h-0">
                         {/* Text content */}
                         <div className="p-6 flex flex-col">
                           <div className="flex items-center gap-3 md:hidden mb-4">
@@ -115,7 +115,7 @@ export default function HowWeWork() {
                         </div>
 
                         {/* Image */}
-                        <div className="relative aspect-[4/3] sm:aspect-auto overflow-hidden">
+                        <div className="relative aspect-4/3 sm:aspect-auto overflow-hidden">
                           <Image
                             src={step.image}
                             alt={step.title}

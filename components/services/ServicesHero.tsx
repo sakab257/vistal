@@ -9,21 +9,21 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function ServicesHero() {
   return (
-    <section className="relative min-h-screen bg-brand-black text-white overflow-hidden flex items-center">
+    <section className="sticky top-0 min-h-screen bg-brand-black text-white overflow-hidden flex items-center">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero/hero-bg.webp"
+          src="/images/services/hero-services.webp"
           alt=""
           fill
           priority
           className="object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/50" />
       </div>
 
       <div className="relative z-10 w-full py-32 max-md:py-20">
-        <div className="px-[3.75rem] max-md:px-6">
+        <div className="px-15 max-md:px-6">
           <Container>
             <motion.div
               variants={staggerContainer}
@@ -37,7 +37,7 @@ export default function ServicesHero() {
 
               <div className="h-10" />
 
-              <motion.div variants={fadeInUp} className="max-w-[40rem]">
+              <motion.div variants={fadeInUp} className="max-w-160">
                 <h1 className="text-[4rem] max-md:text-[2.5rem] max-sm:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
                   Showcase of our featured projects
                 </h1>
@@ -45,7 +45,7 @@ export default function ServicesHero() {
 
               <div className="h-10" />
 
-              <motion.div variants={fadeInUp} className="max-w-[32rem]">
+              <motion.div variants={fadeInUp} className="max-w-lg">
                 <p className="text-base text-grey-200 leading-relaxed">
                   Bring your architectural projects to life with a template that
                   puts your work front and center.
