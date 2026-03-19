@@ -4,10 +4,9 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Container from "@/components/layout/Container";
-import Tag from "@/components/ui/Tag";
 import Button from "@/components/ui/Button";
 import { PROJECTS } from "@/lib/constants";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { fadeInUp, scaleIn } from "@/lib/animations";
 
 export default function ProjectsTabs() {
   const [activeTab, setActiveTab] = useState(1);
@@ -19,36 +18,46 @@ export default function ProjectsTabs() {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
-    <section className="bg-white text-brand-black">
-      <div className="py-[3.75rem] max-md:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-white text-brand-black relative z-10">
+      <div className="py-15 max-md:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             {/* Tab cards */}
             <motion.div
-              variants={staggerContainer}
+              variants={scaleIn}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className="grid grid-cols-4 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3"
+              className="grid grid-cols-4 max-md:grid-cols-2 gap-3"
             >
               {PROJECTS.map((project, i) => (
                 <motion.button
                   key={project.id}
                   variants={fadeInUp}
                   onClick={() => setActiveTab(i)}
-                  className={`relative rounded-2xl p-5 text-left transition-all duration-300 cursor-pointer overflow-hidden min-h-[180px] flex flex-col justify-between ${
+                  className={`relative rounded-2xl p-5 text-left transition-colors duration-300 cursor-pointer overflow-hidden h-30 md:min-h-45 flex flex-col justify-between ${
                     activeTab === i
                       ? "bg-brand-black text-white"
-                      : "bg-grey-100 text-brand-black hover:bg-grey-200/50"
+                      : "bg-black text-white hover:bg-black/90"
                   }`}
                 >
+                  {activeTab === i && (
+                    <div className="absolute inset-0 z-0">
+                      <Image
+                        src={project.image}
+                        alt=""
+                        fill
+                        className="object-cover opacity-40"
+                      />
+                    </div>
+                  )}
                   <div className="relative z-10 flex flex-col h-full justify-between">
                     <div className="text-xs text-grey-200 max-md:hidden">
                       {project.location}
                     </div>
-                    <div className="py-2">
+                    <div className="py-2 max-md:flex-1">
                       <span
-                        className={`text-2xl font-medium tracking-[-0.03em] ${
+                        className={`text-sm md:text-2xl font-medium tracking-[-0.03em] flex justify-center items-center max-md:h-full ${
                           activeTab === i ? "text-brand-yellow" : ""
                         }`}
                       >
@@ -68,58 +77,49 @@ export default function ProjectsTabs() {
             </motion.div>
 
             {/* Tab content */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                <div className="h-24 max-md:h-12 max-sm:h-8" />
-
-                {/* Content: title left, description right */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <h2 className="text-[4rem] max-md:text-[2.5rem] max-sm:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
-                    {PROJECTS[activeTab].title}
-                  </h2>
-
-                  <div className="flex flex-col">
-                    <Tag>Overview</Tag>
-                    <div className="h-8" />
-                    <p className="text-base text-grey-400 leading-relaxed">
-                      {PROJECTS[activeTab].description}
-                    </p>
-                    <div className="h-8" />
-                    <div>
-                      <Button href={PROJECTS[activeTab].href} variant="secondary">
-                        View project
-                      </Button>
+            <div className="mt-12 max-md:mt-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                >
+                  {/* Image */}
+                  <div
+                    ref={imageRef}
+                    className="relative w-full h-100 max-md:aspect-4/3 rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
+                  >
+                    <motion.div
+                      className="absolute inset-[-10%] w-[120%] h-[120%]"
+                      style={{ y: imageY }}
+                    >
+                      <Image
+                        src={PROJECTS[activeTab].image}
+                        alt={PROJECTS[activeTab].title}
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                    {/* Bottom overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-8 max-md:p-5 bg-linear-to-t from-black/70 to-transparent">
+                      <div className="grid grid-cols-2 items-end gap-4">
+                        <p className="text-white text-base max-w-200 leading-relaxed">
+                          {PROJECTS[activeTab].homeDescription ||
+                            PROJECTS[activeTab].description}
+                        </p>
+                        <div className="ml-auto">
+                          <Button href={PROJECTS[activeTab].href} variant="white">
+                            See project
+                          </Button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="h-24 max-md:h-12 max-sm:h-8" />
-
-                {/* Full-width image */}
-                <div
-                  ref={imageRef}
-                  className="relative w-full aspect-[2/1] max-md:aspect-[4/3] rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
-                >
-                  <motion.div
-                    className="absolute inset-[-10%] w-[120%] h-[120%]"
-                    style={{ y: imageY }}
-                  >
-                    <Image
-                      src={PROJECTS[activeTab].image}
-                      alt={PROJECTS[activeTab].title}
-                      fill
-                      className="object-cover"
-                    />
-                  </motion.div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </Container>
         </div>
       </div>

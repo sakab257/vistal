@@ -18,6 +18,33 @@ export const fadeInLeft: Variants = {
   },
 };
 
+export const fadeInRight: Variants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+export const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -150 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
+export const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 150 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {

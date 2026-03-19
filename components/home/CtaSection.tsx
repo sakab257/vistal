@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function CtaSection() {
   return (
-    <section className="bg-brand-yellow text-brand-black">
+    <section className="bg-brand-yellow text-brand-black relative z-10">
       <div className="py-15 max-md:py-10">
         <div className="px-15 max-md:px-6">
           <Container>

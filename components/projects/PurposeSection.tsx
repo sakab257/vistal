@@ -5,8 +5,9 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Container from "@/components/layout/Container";
 import Tag from "@/components/ui/Tag";
+import CountUp from "@/components/ui/CountUp";
 import { STATS } from "@/lib/constants";
-import { fadeInUp, staggerContainer } from "@/lib/animations";
+import { fadeInUp, slideInLeft, slideInRight, staggerContainer } from "@/lib/animations";
 
 export default function PurposeSection() {
   const imageRef = useRef<HTMLDivElement>(null);
@@ -17,16 +18,16 @@ export default function PurposeSection() {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
-    <section className="bg-brand-yellow text-brand-black">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-brand-yellow text-brand-black relative z-10">
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           <Container>
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8"
             >
               <motion.div variants={fadeInUp}>
                 <Tag>Our sustainability journey</Tag>
@@ -41,19 +42,19 @@ export default function PurposeSection() {
                   buyers, sellers, and investors achieve their real estate goals.
                 </motion.h2>
 
-                <div className="h-[4.5rem] max-md:h-12 max-sm:h-8" />
+                <div className="h-18 max-md:h-12 max-sm:h-8" />
 
                 {/* Stats */}
                 <motion.div
-                  variants={fadeInUp}
+                  variants={slideInLeft}
                   className="grid grid-cols-3 gap-6"
                 >
                   {STATS.map((stat) => (
                     <div key={stat.label}>
                       <div className="text-[2.5rem] max-md:text-[1.75rem] font-medium leading-[1.2] tracking-[-0.03em]">
-                        {stat.value}
+                        <CountUp value={stat.value} />
                         {stat.suffix && (
-                          <span className="text-brand-black/60">
+                          <span className="text-brand-black">
                             {stat.suffix}
                           </span>
                         )}
@@ -64,25 +65,28 @@ export default function PurposeSection() {
                   ))}
                 </motion.div>
 
-                <div className="h-[4.5rem] max-md:h-12 max-sm:h-8" />
+                <div className="h-18 max-md:h-12 max-sm:h-8" />
 
                 {/* Parallax image */}
-                <div
-                  ref={imageRef}
-                  className="relative w-full aspect-[16/9] rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
-                >
-                  <motion.div
-                    className="absolute inset-[-10%] w-[120%] h-[120%]"
-                    style={{ y: imageY }}
+                <motion.div variants={slideInRight} className="relative">
+                  <div className="absolute inset-0 bg-black translate-x-3 translate-y-3 rounded-xs" />
+                  <div
+                    ref={imageRef}
+                    className="relative w-full aspect-video overflow-hidden rounded-xs"
                   >
-                    <Image
-                      src="/images/projects/purpose-parallax.avif"
-                      alt="Sustainable architecture"
-                      fill
-                      className="object-cover"
-                    />
-                  </motion.div>
-                </div>
+                    <motion.div
+                      className="absolute inset-[-10%] w-[120%] h-[120%]"
+                      style={{ y: imageY }}
+                    >
+                      <Image
+                        src="/images/projects/purpose-parallax.avif"
+                        alt="Sustainable architecture"
+                        fill
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </Container>

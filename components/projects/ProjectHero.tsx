@@ -8,21 +8,21 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function ProjectHero() {
   return (
-    <section className="relative min-h-screen bg-brand-black text-white overflow-hidden flex items-center">
+    <section className="sticky top-0 min-h-screen bg-brand-black text-white overflow-hidden flex items-center">
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/images/hero/hero-bg.webp"
+          src="/images/projects/projects-hero.avif"
           alt=""
           fill
           priority
           className="object-cover opacity-60"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/50" />
       </div>
 
       <div className="relative z-10 w-full py-32 max-md:py-20">
-        <div className="px-[3.75rem] max-md:px-6">
+        <div className="px-15 max-md:px-6">
           <Container size="small">
             <motion.div
               variants={staggerContainer}
@@ -47,7 +47,7 @@ export default function ProjectHero() {
 
               <motion.p
                 variants={fadeInUp}
-                className="text-base text-grey-200 leading-relaxed max-w-[42rem]"
+                className="text-base text-grey-200 leading-relaxed max-w-2xl"
               >
                 Bring your architectural projects to life with a template that
                 puts your work front and center. Simple, elegant, and made for

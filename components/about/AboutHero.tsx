@@ -10,9 +10,9 @@ import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 export default function AboutHero() {
   return (
-    <section className="bg-white text-brand-black">
-      <div className="py-[6.25rem] max-md:py-16 max-sm:py-10">
-        <div className="px-[3.75rem] max-md:px-6">
+    <section className="bg-black text-white">
+      <div className="py-25 max-md:py-16 max-sm:py-10">
+        <div className="px-15 max-md:px-6">
           {/* Centered hero text */}
           <Container size="small">
             <motion.div
@@ -22,12 +22,12 @@ export default function AboutHero() {
               className="flex flex-col items-center text-center"
             >
               <motion.div variants={fadeInUp}>
-                <Tag>Services</Tag>
+                <Tag variant="secondary">Services</Tag>
               </motion.div>
 
               <div className="h-10" />
 
-              <motion.div variants={fadeInUp} className="max-w-[40rem]">
+              <motion.div variants={fadeInUp} className="max-w-160">
                 <h1 className="text-[4rem] max-md:text-[2.5rem] max-sm:text-[2rem] font-medium leading-[1.1] tracking-[-0.04em]">
                   Designing spaces, bringing ideas to life
                 </h1>
@@ -35,7 +35,7 @@ export default function AboutHero() {
 
               <div className="h-10" />
 
-              <motion.div variants={fadeInUp} className="max-w-[32rem]">
+              <motion.div variants={fadeInUp} className="max-w-lg">
                 <p className="text-base text-grey-400 leading-relaxed">
                   We are passionate about creating inspiring, attention-grabbing,
                   and enduring spaces that adapt to innovation.
@@ -45,7 +45,7 @@ export default function AboutHero() {
               <div className="h-4" />
 
               <motion.div variants={fadeInUp}>
-                <Button href="/contact" variant="secondary">
+                <Button href="/contact">
                   Get started
                 </Button>
               </motion.div>
@@ -65,7 +65,7 @@ export default function AboutHero() {
               {/* Stats row */}
               <motion.div
                 variants={fadeInUp}
-                className="grid grid-cols-3 gap-6 max-w-[48rem]"
+                className="grid grid-cols-3 gap-6 max-w-3xl"
               >
                 {STATS.map((stat) => (
                   <div key={stat.label}>
@@ -88,7 +88,7 @@ export default function AboutHero() {
               {/* Hero image */}
               <motion.div
                 variants={fadeInUp}
-                className="relative w-full aspect-[2/1] max-md:aspect-[4/3] rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
+                className="relative w-full aspect-2/1 max-md:aspect-4/3 rounded-[2.5rem] max-md:rounded-2xl overflow-hidden"
               >
                 <Image
                   src="/images/about/hero-about.avif"

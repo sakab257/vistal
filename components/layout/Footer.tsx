@@ -10,12 +10,12 @@ interface FooterProps {
 export default function Footer({ variant = "base" }: FooterProps) {
   return (
     <footer
-      className={`bg-brand-black text-white ${
+      className={`bg-brand-black text-white relative ${
         variant === "base" ? "sticky bottom-0 z-0" : ""
       }`}
     >
-      <div className="py-[3.75rem]" />
-      <div className="px-[3.75rem] max-md:px-6">
+      <div className="py-15" />
+      <div className="px-15 max-md:px-6">
         <Container>
           {/* Top section */}
           <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 md:gap-12">
@@ -30,7 +30,7 @@ export default function Footer({ variant = "base" }: FooterProps) {
                   className="h-6 w-auto"
                 />
               </Link>
-              <p className="text-grey-200 text-base max-w-[32rem] leading-relaxed">
+              <p className="text-grey-200 text-base max-w-lg leading-relaxed">
                 Bring your architectural projects to life with a template that
                 puts your work front and center.
               </p>
@@ -67,7 +67,7 @@ export default function Footer({ variant = "base" }: FooterProps) {
           </div>
         </Container>
       </div>
-      <div className="py-[3.75rem]" />
+      <div className="py-15" />
     </footer>
   );
 }
