@@ -44,7 +44,7 @@ export default function CtaSection() {
                 <div className="h-4" />
 
                 <motion.div variants={fadeInUp}>
-                  <Button href="#" variant="secondary">
+                  <Button href="/contact" variant="secondary">
                     Get started
                   </Button>
                 </motion.div>

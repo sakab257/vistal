@@ -12,20 +12,24 @@ export default function HeroFull() {
     offset: ["start start", "end start"],
   });
 
-  // House overlay fades out first (0→20%)
-  const houseOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  // 1. On récupère le scroll en pixels
+  const { scrollY } = useScroll();
 
-  // Dark overlay fades IN (20→50%) — but stays BELOW the SVG text
-  const darkOverlay = useTransform(scrollYProgress, [0.2, 0.5], [0, 1]);
+  // 2. L'overlay de la maison disparaît en exactement 50px de scroll
+  const houseOpacity = useTransform(scrollY, [0, 50], [1, 0]);
 
-  // Bottom content fades out at the start of scroll
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.1], ["0px", "40px"]);
+  // 3. LA MAGIE POUR SAFARI : Au lieu d'animer l'opacity, on anime le backgroundColor 
+  // de transparent (0) à noir (1). Safari le gère parfaitement même avec transform-gpu.
+  const darkOverlayBg = useTransform(
+    scrollYProgress, 
+    [0.2, 0.5], 
+    ["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 1)"]
+  );
 
   return (
     <section ref={sectionRef} className="relative bg-brand-black text-white h-[150vh]">
 
-      {/* Background image — absolute, fills section */}
+      {/* Background image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/hero/hero-bg.webp"
@@ -37,9 +41,9 @@ export default function HeroFull() {
         <div className="absolute inset-0 bg-[radial-gradient(circle,transparent_30%,rgba(0,0,0,0.7))]" />
       </div>
 
-      {/* House overlay — absolute, fades out first */}
+      {/* House overlay — fades out in 50px */}
       <motion.div
-        className="absolute inset-0 z-25 pointer-events-none"
+        className="absolute inset-0 z-25 pointer-events-none transform-gpu"
         style={{ opacity: houseOpacity }}
       >
         <Image
@@ -51,17 +55,14 @@ export default function HeroFull() {
         />
       </motion.div>
 
-      {/* Dark overlay — fades in, z-16 (BELOW the SVG at z-20) */}
+      {/* Dark overlay — fades in via backgroundColor (Safari safe) */}
       <motion.div
-        className="absolute inset-0 z-16 pointer-events-none bg-brand-black"
-        style={{ opacity: darkOverlay }}
+        className="absolute inset-0 z-16 pointer-events-none transform-gpu"
+        style={{ backgroundColor: darkOverlayBg }}
       />
 
-      {/* Vistal© SVG — in document flow, sticky behavior:
-          - Starts centered in the viewport (flex items-center)
-          - Follows scroll (sticky top-0 keeps it in the viewport)
-          - At the end of the section, unsticks and sits at the bottom */}
-      <div className="relative z-20 h-full pointer-events-none">
+      {/* Vistal© SVG */}
+      <div className="relative z-20 h-full pointer-events-none transform-gpu">
         <div className="sticky top-0 h-screen flex items-center justify-center">
           <Image
             src="/images/brand/vistal-hero.svg"
@@ -75,6 +76,7 @@ export default function HeroFull() {
       </div>
 
       {/* Bottom content — heading + description + button */}
+      {/* Plus d'animation d'opacité ici, le texte reste affiché tout le long ! */}
       <motion.div
         className="absolute bottom-0 left-0 right-0 z-30 px-15 max-md:px-6 pb-16 max-md:pb-10"
       >

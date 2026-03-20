@@ -20,7 +20,7 @@ export default function PurposeSection() {
   return (
     <section className="bg-brand-yellow text-brand-black relative z-10">
       <div className="py-25 max-md:py-16 max-sm:py-10">
-        <div className="px-15 max-md:px-6">
+        <div className="px-15 max-md:px-6 overflow-hidden">
           <Container>
             <motion.div
               variants={staggerContainer}

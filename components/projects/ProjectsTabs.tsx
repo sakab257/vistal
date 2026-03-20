@@ -103,13 +103,13 @@ export default function ProjectsTabs() {
                       />
                     </motion.div>
                     {/* Bottom overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8 max-md:p-5 bg-linear-to-t from-black/70 to-transparent">
-                      <div className="grid grid-cols-2 items-end gap-4">
-                        <p className="text-white text-base max-w-200 leading-relaxed">
+                    <div className="absolute bottom-0 left-0 right-0 p-8 max-md:p-5 bg-linear-to-t from-black/70 to-transparent h-full">
+                      <div className="flex flex-col md:grid md:grid-cols-2 gap-4 h-full">
+                        <p className="text-white text-base max-w-200 leading-relaxed md:mt-auto">
                           {PROJECTS[activeTab].homeDescription ||
                             PROJECTS[activeTab].description}
                         </p>
-                        <div className="ml-auto">
+                        <div className="ml-auto mt-auto">
                           <Button href={PROJECTS[activeTab].href} variant="white">
                             See project
                           </Button>
